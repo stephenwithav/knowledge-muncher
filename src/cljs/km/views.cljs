@@ -2,7 +2,6 @@
   (:require
    [re-frame.core :as re-frame]
    [km.subs :as subs]
-   [km.events :as e]
    ))
 
 (defn make-cell [cell]
@@ -11,8 +10,10 @@
 
 (defn main-panel []
   (let [cells (re-frame/subscribe [:new-game])]
-    [:div {:id "game-board"}
-     [:button
-      {:on-click #(re-frame/dispatch [:new-game])}
-      "reset"]
-     ]))
+    (fn []
+      [:div {:id "game-board"}
+       (map keys [{:か "ka"} {:く "ku"}])
+       [:button
+        {:on-click #(re-frame/dispatch [:new-game])}
+        "reset"]
+       ])))
