@@ -12,7 +12,7 @@
   (let [cells (re-frame/subscribe [:new-game])]
     (fn []
       [:div {:id "game-board"}
-       (map keys [{:か "ka"} {:く "ku"}])
+       (map (comp #(str "kana: " % "\n") keys) [{:か "ka"} {:く "ku"}])
        [:button
         {:on-click #(re-frame/dispatch [:new-game])}
         "reset"]
