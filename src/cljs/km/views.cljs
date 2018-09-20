@@ -5,14 +5,14 @@
    ))
 
 (defn make-cell [cell]
-  [:div {:class "game-cell"}
-   cell])
+  [:div {:class "game-cell" :key (gensym "cell")}
+   (first cell)])
 
 (defn main-panel []
   (let [cells (re-frame/subscribe [:new-game])]
     (fn []
       [:div {:id "game-board"}
-       (map (comp #(str "kana: " % "\n") keys) [{:か "ka"} {:く "ku"}])
+       (map make-cell @cells)
        [:button
         {:on-click #(re-frame/dispatch [:new-game])}
         "reset"]

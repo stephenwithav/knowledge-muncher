@@ -28,7 +28,6 @@
  :new-game
  (fn [_ _]
    (let [n (rand-int (count db/all-language-boards))
-         language (nth db/all-language-boards n)]
-     (.log js/console (str "n = " n))
-     (.log js/console (str "lang = " language))
-     {:cells (take 30 #(generate-cells language))})))
+         language (nth db/all-language-boards n)
+         cells (take 30 (generate-cells language 6))]
+     {:cells cells})))

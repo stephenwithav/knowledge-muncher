@@ -4,5 +4,5 @@
 
 (re-frame/reg-sub
  :new-game
- (fn [db]
+ (fn [db _]
    (:cells db)))
