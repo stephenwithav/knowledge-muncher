@@ -4,5 +4,5 @@
 
 (re-frame/reg-sub
  :new-game
- (fn [db _]
-   (:cells db)))
+ (fn [db v]
+   (select-keys db [:cells :seek])))

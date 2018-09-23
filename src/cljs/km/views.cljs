@@ -9,12 +9,14 @@
    (first cell)])
 
 (defn main-panel []
-  (let [cells (re-frame/subscribe [:new-game])]
+  (let [state (re-frame/subscribe [:new-game])
+        cells (:cells @state)]
     (fn []
+      (.log js/console (:cells @state))
       [:div {:id "game-container"}
        [:div {:id "lang"} "Language: Japanese"]
        [:div {:id "game-board"}
-       (map make-cell @cells)
+       (map make-cell (:cells @state))
        [:button
         {:on-click #(re-frame/dispatch [:new-game])}
         "reset"]
