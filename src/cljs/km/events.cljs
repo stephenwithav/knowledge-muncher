@@ -31,4 +31,4 @@
          language (nth db/all-language-boards n)
          cells (take 30 (generate-cells language 6))]
      {:cells (shuffle cells)
-      :seek (first cells)})))
+      :seek ((comp second first) cells)})))
