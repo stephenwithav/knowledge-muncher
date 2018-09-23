@@ -27,8 +27,9 @@
 (re-frame/reg-event-db
  :new-game
  (fn [_ _]
-   (let [n (rand-int (count db/all-language-boards))
-         language (nth db/all-language-boards n)
-         cells (take 30 (generate-cells language 6))]
+   (let [key (rand-nth (keys db/all-language-boards))
+         language (key db/all-language-boards)
+         cells (take 30 (generate-cells (:chars language) 6))]
      {:cells (shuffle cells)
-      :seek ((comp second first) cells)})))
+      :seek ((comp second first) cells)
+      :language (:language language)})))
