@@ -12,9 +12,10 @@
   (let [state (re-frame/subscribe [:new-game])]
     (fn []
       (let [cells (:cells @state)
-            seek (:seek @state)]
+            seek (:seek @state)
+            lang (:language @state)]
         [:div {:id "game-container"}
-         [:div {:id "lang"} "Language: Japanese"]
+         [:div {:id "lang"} lang]
          [:div {:id "game-board"}
           (map make-cell cells)
           [:button

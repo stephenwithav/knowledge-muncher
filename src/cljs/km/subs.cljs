@@ -5,4 +5,4 @@
 (re-frame/reg-sub
  :new-game
  (fn [db v]
-   (select-keys db [:cells :seek])))
+   (select-keys db [:cells :seek :language])))
