@@ -11,9 +11,12 @@
 (defn main-panel []
   (let [cells (re-frame/subscribe [:new-game])]
     (fn []
-      [:div {:id "game-board"}
+      [:div {:id "game-container"}
+       [:div {:id "lang"} "Language: Japanese"]
+       [:div {:id "game-board"}
        (map make-cell @cells)
        [:button
         {:on-click #(re-frame/dispatch [:new-game])}
         "reset"]
-       ])))
+       ]
+       [:div {:id "game-level"} "Level: 0"]])))

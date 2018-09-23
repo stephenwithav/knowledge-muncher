@@ -30,4 +30,5 @@
    (let [n (rand-int (count db/all-language-boards))
          language (nth db/all-language-boards n)
          cells (take 30 (generate-cells language 6))]
-     {:cells cells})))
+     {:cells (shuffle cells)
+      :seek (first cells)})))
