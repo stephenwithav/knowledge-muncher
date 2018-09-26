@@ -5,4 +5,10 @@
 (re-frame/reg-sub
  :new-game
  (fn [db v]
-   (select-keys db [:cells :seek :language])))
+   (select-keys db [:levels :language])))
+
+
+(re-frame/reg-sub
+ :next-level
+ (fn [db v]
+   (select-keys db [:current-level :current-board :language])))

@@ -9,11 +9,14 @@
    (first cell)])
 
 (defn main-panel []
-  (let [state (re-frame/subscribe [:new-game])]
+  (let [state (re-frame/subscribe [:next-level])]
     (fn []
-      (let [cells (:cells @state)
-            seek (:seek @state)
+      (.log js/console (keys @state))
+      (let [cells (:current-board @state)
+            seek (:current-level @state)
             lang (:language @state)]
+        (.log js/console (str seek " from " lang))
+        (.log js/console cells)
         [:div {:id "game-container"}
          [:div {:id "lang"} lang]
          [:div {:id "game-board"}
@@ -21,5 +24,8 @@
           [:button
            {:on-click #(re-frame/dispatch [:new-game])}
            "reset"]
+          [:button
+           {:on-click #(re-frame/dispatch [:next-level])}
+           "next level"]
           ]
          [:div {:id "game-level"} seek]]))))

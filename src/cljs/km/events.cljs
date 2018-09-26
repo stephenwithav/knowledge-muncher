@@ -24,12 +24,32 @@
       (partial nth chars-of-interest)
       (repeatedly #(rand-int n))))))
 
-(re-frame/reg-event-db
+(re-frame/reg-event-fx
  :new-game
  (fn [_ _]
-   (let [key (rand-nth (keys db/all-language-boards))
-         language (key db/all-language-boards)
-         cells (take 30 (generate-cells (:chars language) 6))]
-     {:cells (shuffle cells)
-      :seek ((comp second first) cells)
-      :language (:language language)})))
+   (.log js/console (keys db/all-language-boards))
+   (let [board (rand-nth (keys db/all-language-boards))
+         language (board db/all-language-boards)
+         chars (:chars language)]
+     {:db {:levels chars
+           :language (:language language)}
+      :dispatch [:next-level]})))
+
+
+(re-frame/reg-event-fx
+ :next-level
+ (fn [{:keys [db]} _]
+   (.log js/console (str "in :next-level handler: " db))
+   (let [levels (:levels db)
+         character-to-find (first levels)
+         [kana-character romaji-character] character-to-find
+         invalid-chars (take 5 (shuffle (dissoc levels character-to-find)))
+         ]
+   {:db (assoc db
+               :current-level romaji-character
+               :levels (rest levels)
+               :current-board (shuffle
+                               (take 30
+                                     (cycle
+                                      (conj invalid-chars character-to-find))))
+               )})))
