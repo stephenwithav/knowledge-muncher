@@ -27,13 +27,14 @@
          foreign-character (get-foreign-char db)
          invalid-chars (take 5 ((comp shuffle keys dissoc) (:all-levels db) foreign-character))
          ]
-     (.log js/console "kana:" foreign-character "=" native-character)
-     (.log js/console "invalid:" (dissoc (:all-levels db) foreign-character))
-     {:db (assoc db
-                 :current-level native-character
-                 :levels (rest (:levels-to-go db))
-                 :current-board (shuffle
-                                 (take 30
-                                       (cycle
-                                        (conj invalid-chars foreign-character))))
-                 )})))
+     (when-not (nil? native-character)
+      (.log js/console "kana:" foreign-character "=" native-character)
+      (.log js/console "invalid:" invalid-chars)
+      {:db (assoc db
+                  :current-level native-character
+                  :levels-to-go (rest (:levels-to-go db))
+                  :current-board (shuffle
+                                  (take 30
+                                        (cycle
+                                         (conj invalid-chars foreign-character))))
+                  )}))))
