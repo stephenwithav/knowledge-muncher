@@ -6,12 +6,12 @@
 
 (defn make-cell [cell]
   [:div {:class "game-cell" :key (gensym "cell")}
-   (first cell)])
+   cell])
 
 (defn main-panel []
   (let [state (re-frame/subscribe [:next-level])]
     (fn []
-      (.log js/console (keys @state))
+      (.log js/console @state)
       (let [cells (:current-board @state)
             seek (:current-level @state)
             lang (:language @state)]

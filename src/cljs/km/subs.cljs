@@ -5,7 +5,7 @@
 (re-frame/reg-sub
  :new-game
  (fn [db v]
-   (select-keys db [:levels :language])))
+   (select-keys db [:levels-to-go :language])))
 
 
 (re-frame/reg-sub
