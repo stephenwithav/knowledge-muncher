@@ -11,4 +11,4 @@
 (re-frame/reg-sub
  :next-level
  (fn [db v]
-   (select-keys db [:current-level :current-board :language])))
+   (select-keys db [:current-level-native :current-level-foreign :current-board :language])))

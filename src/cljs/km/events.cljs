@@ -31,10 +31,19 @@
       (.log js/console "kana:" foreign-character "=" native-character)
       (.log js/console "invalid:" invalid-chars)
       {:db (assoc db
-                  :current-level native-character
+                  :current-level-native native-character
+                  :current-level-foreign foreign-character
                   :levels-to-go (rest (:levels-to-go db))
                   :current-board (shuffle
                                   (take 30
                                         (cycle
                                          (conj invalid-chars foreign-character))))
                   )}))))
+
+(re-frame/reg-event-fx
+ :check-cell
+ (fn [{:keys [db]} [_ current-cell-value clicked-cell-num]]
+   (let [sought-cell-value (get-in db [:current-level-foreign])]
+     (if (= sought-cell-value current-cell-value)
+       {:db (assoc-in db [:current-board clicked-cell-num] nil)}))
+  ))
